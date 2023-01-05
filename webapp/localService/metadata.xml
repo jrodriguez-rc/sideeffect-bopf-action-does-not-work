@@ -1,0 +1,1326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://dfi.test:14443/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='S4FIN')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://dfi.test:14443/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='S4FIN')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://dfi.test:14443/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='S4FIN')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://dfi.test:14443/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='S4FIN')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://dfi.test:14443/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='S4FIN')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZC_HIGHQAPICONFIGURATION_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="I_DraftAdministrativeDataType" sap:label="Draft Administration Data" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false" sap:label="Draft (Technical ID)"/>
+                <Property Name="DraftEntityType" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Draft Entity ID"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:text="CreatedByUserDescription" sap:label="Draft Created By"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:text="LastChangedByUserDescription" sap:label="Draft Last Changed By"/>
+                <Property Name="DraftAccessType" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Draft Access Type"/>
+                <Property Name="ProcessingStartDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft In Process Since"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:text="InProcessByUserDescription" sap:label="Draft In Process By"/>
+                <Property Name="DraftIsKeptByUser" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Draft Is Kept By User"/>
+                <Property Name="EnqueueStartDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Locked Since"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Draft Created By Me"/>
+                <Property Name="DraftIsLastChangedByMe" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Draft Last Changed By Me"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Draft In Process By Me"/>
+                <Property Name="CreatedByUserDescription" Type="Edm.String" MaxLength="80" sap:label="Draft Created By (Description)"/>
+                <Property Name="LastChangedByUserDescription" Type="Edm.String" MaxLength="80" sap:label="Draft Last Changed By (Description)"/>
+                <Property Name="InProcessByUserDescription" Type="Edm.String" MaxLength="80" sap:label="Draft In Process By (Description)"/>
+            </EntityType>
+            <EntityType Name="ZC_HighQAPIConfigurationType" sap:label="HighQ API Configuration" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="uuid"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="Activation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Cancel_default_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Edit_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Reload_token_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Set_default_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="uuid" Type="Edm.Guid" Nullable="false" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)"/>
+                <Property Name="InstanceId" Type="Edm.Byte" sap:label="Instance Id"/>
+                <Property Name="InstanceName" Type="Edm.String" MaxLength="120" sap:label="Instance Name" sap:quickinfo="HighQ Instance Name"/>
+                <Property Name="InstanceDefault" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:text="to_Default/Description" sap:label="Instance Default" sap:quickinfo="HighQ Instance Default" sap:creatable="false" sap:updatable="false" sap:value-list="fixed-values"/>
+                <Property Name="Criticality" Type="Edm.Byte" sap:label="Criticality" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="APIVersion" Type="Edm.Int32" sap:label="API Version"/>
+                <Property Name="ClientId" Type="Edm.Byte" sap:label="Client Id" sap:quickinfo="HighQ Client Id"/>
+                <Property Name="Secret" Type="Edm.String" MaxLength="50" sap:label="API Secret" sap:quickinfo="HighQ API Secret"/>
+                <Property Name="Code" Type="Edm.String" MaxLength="20" sap:label="API Code" sap:quickinfo="HighQ API Code"/>
+                <Property Name="URLGenerateCode" Type="Edm.String" MaxLength="1333" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AccessToken" Type="Edm.String" MaxLength="50" sap:label="Access Token" sap:quickinfo="HiqhQ Access Token" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="RefreshToken" Type="Edm.String" MaxLength="50" sap:label="Refresh Token" sap:quickinfo="HiqhQ Refresh Token" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ContractsiSheetId" Type="Edm.Int32" sap:label="Contracts iSheet Id" sap:quickinfo="HighQ iSheet Id Contracts"/>
+                <Property Name="SuppliersiSheetId" Type="Edm.Int32" sap:label="Suppliers iSheet Id" sap:quickinfo="HighQ iSheet Id Suppliers"/>
+                <Property Name="ResourceManagersiSheetId" Type="Edm.Int32" sap:label="ResManager iSheet Id" sap:quickinfo="HighQ iSheet Id Resource Manager"/>
+                <Property Name="CompanyCodeiSheetId" Type="Edm.Int32" sap:label="Company iSheet Id" sap:quickinfo="HighQ iSheet Id Company Code"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has Draft" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:display-format="UpperCase" sap:label="Is active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_A30542AE43F856BB193873B4AA7865A9" FromRole="FromRole_assoc_A30542AE43F856BB193873B4AA7865A9" ToRole="ToRole_assoc_A30542AE43F856BB193873B4AA7865A9"/>
+                <NavigationProperty Name="SiblingEntity" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_BF6721BB1BFCA46F39BA5F5974754DF8" FromRole="FromRole_assoc_BF6721BB1BFCA46F39BA5F5974754DF8" ToRole="ToRole_assoc_BF6721BB1BFCA46F39BA5F5974754DF8"/>
+                <NavigationProperty Name="to_Default" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_33869AAF2D056ABC38CC13E953E5ACB9" FromRole="FromRole_assoc_33869AAF2D056ABC38CC13E953E5ACB9" ToRole="ToRole_assoc_33869AAF2D056ABC38CC13E953E5ACB9"/>
+                <NavigationProperty Name="to_ExternalValue" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_3A62FF9DECC61D2695616D0C7E9E7F45" FromRole="FromRole_assoc_3A62FF9DECC61D2695616D0C7E9E7F45" ToRole="ToRole_assoc_3A62FF9DECC61D2695616D0C7E9E7F45"/>
+                <NavigationProperty Name="to_MappingCompanyField" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_257D6BBA768FD2FC4997805730B77B68" FromRole="FromRole_assoc_257D6BBA768FD2FC4997805730B77B68" ToRole="ToRole_assoc_257D6BBA768FD2FC4997805730B77B68"/>
+                <NavigationProperty Name="to_MappingContractField" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_2E6C6174EDE75D14F2DD1067157D0330" FromRole="FromRole_assoc_2E6C6174EDE75D14F2DD1067157D0330" ToRole="ToRole_assoc_2E6C6174EDE75D14F2DD1067157D0330"/>
+                <NavigationProperty Name="to_MappingManagerField" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_A3A6F3CE2DF3C0F1008864A5D885F041" FromRole="FromRole_assoc_A3A6F3CE2DF3C0F1008864A5D885F041" ToRole="ToRole_assoc_A3A6F3CE2DF3C0F1008864A5D885F041"/>
+                <NavigationProperty Name="to_MappingSupplierField" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE" FromRole="FromRole_assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE" ToRole="ToRole_assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE"/>
+            </EntityType>
+            <EntityType Name="ZC_HighQAPIMapCompanyFieldType" sap:label="HighQ API Mapping Company Code Field" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="uuid"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="uuid" Type="Edm.Guid" Nullable="false" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ConfigurationId" Type="Edm.Guid" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)" sap:value-list="standard"/>
+                <Property Name="FieldId" Type="Edm.Int32" sap:label="Field Id" sap:quickinfo="HighQ iSheet Field Id"/>
+                <Property Name="LocalFieldname" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:text="to_Field/Description" sap:label="Field Name" sap:value-list="standard"/>
+                <Property Name="IsKey" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Key field" sap:quickinfo="Key field attribute"/>
+                <Property Name="ExternalReference" Type="Edm.String" MaxLength="20" sap:text="to_ExternalReference/Description" sap:label="External Reference" sap:value-list="fixed-values"/>
+                <Property Name="Deleted" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Deleted"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has Draft" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:display-format="UpperCase" sap:label="Is active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="to_Configuration" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_257D6BBA768FD2FC4997805730B77B68" FromRole="ToRole_assoc_257D6BBA768FD2FC4997805730B77B68" ToRole="FromRole_assoc_257D6BBA768FD2FC4997805730B77B68"/>
+                <NavigationProperty Name="DraftAdministrativeData" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_25654BC02C26E170AD9B8BD1160D8EB0" FromRole="FromRole_assoc_25654BC02C26E170AD9B8BD1160D8EB0" ToRole="ToRole_assoc_25654BC02C26E170AD9B8BD1160D8EB0"/>
+                <NavigationProperty Name="SiblingEntity" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_F6CADDEA8F0587DABB5FE3946AA378C6" FromRole="FromRole_assoc_F6CADDEA8F0587DABB5FE3946AA378C6" ToRole="ToRole_assoc_F6CADDEA8F0587DABB5FE3946AA378C6"/>
+                <NavigationProperty Name="to_ExternalReference" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_08E51B7EB5436C0FEBE3F29A33894852" FromRole="FromRole_assoc_08E51B7EB5436C0FEBE3F29A33894852" ToRole="ToRole_assoc_08E51B7EB5436C0FEBE3F29A33894852"/>
+                <NavigationProperty Name="to_Field" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_7559FC95D2F46050C0CCF4AE55A4C49E" FromRole="FromRole_assoc_7559FC95D2F46050C0CCF4AE55A4C49E" ToRole="ToRole_assoc_7559FC95D2F46050C0CCF4AE55A4C49E"/>
+            </EntityType>
+            <EntityType Name="ZC_HighQAPIMapContractFieldType" sap:label="HighQ API Mapping Contract Field" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="uuid"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="uuid" Type="Edm.Guid" Nullable="false" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ConfigurationId" Type="Edm.Guid" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)" sap:value-list="standard"/>
+                <Property Name="FieldId" Type="Edm.Int32" sap:label="Field Id" sap:quickinfo="HighQ iSheet Field Id"/>
+                <Property Name="LocalFieldname" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:text="to_Field/Description" sap:label="Field Name" sap:value-list="standard"/>
+                <Property Name="IsKey" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Key field" sap:quickinfo="Key field attribute"/>
+                <Property Name="ExternalReference" Type="Edm.String" MaxLength="20" sap:text="to_ExternalReference/Description" sap:label="External Reference" sap:value-list="fixed-values"/>
+                <Property Name="Deleted" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Deleted"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has Draft" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:display-format="UpperCase" sap:label="Is active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="to_Configuration" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_2E6C6174EDE75D14F2DD1067157D0330" FromRole="ToRole_assoc_2E6C6174EDE75D14F2DD1067157D0330" ToRole="FromRole_assoc_2E6C6174EDE75D14F2DD1067157D0330"/>
+                <NavigationProperty Name="DraftAdministrativeData" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_FE6138FE66202D8CD84B23781EE146F7" FromRole="FromRole_assoc_FE6138FE66202D8CD84B23781EE146F7" ToRole="ToRole_assoc_FE6138FE66202D8CD84B23781EE146F7"/>
+                <NavigationProperty Name="SiblingEntity" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_BD0E56016F8DC5F0E0B9C9BE0FB28E34" FromRole="FromRole_assoc_BD0E56016F8DC5F0E0B9C9BE0FB28E34" ToRole="ToRole_assoc_BD0E56016F8DC5F0E0B9C9BE0FB28E34"/>
+                <NavigationProperty Name="to_ExternalReference" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_37F5B9C32E066E1C722F9AA528A416B8" FromRole="FromRole_assoc_37F5B9C32E066E1C722F9AA528A416B8" ToRole="ToRole_assoc_37F5B9C32E066E1C722F9AA528A416B8"/>
+                <NavigationProperty Name="to_Field" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_285EA16E9DDDDACD2C7FFC8B00537924" FromRole="FromRole_assoc_285EA16E9DDDDACD2C7FFC8B00537924" ToRole="ToRole_assoc_285EA16E9DDDDACD2C7FFC8B00537924"/>
+            </EntityType>
+            <EntityType Name="ZC_HighQAPIMapManagerFieldType" sap:label="HighQ API Mapping Manager Field" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="uuid"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="uuid" Type="Edm.Guid" Nullable="false" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ConfigurationId" Type="Edm.Guid" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)" sap:value-list="standard"/>
+                <Property Name="FieldId" Type="Edm.Int32" sap:label="Field Id" sap:quickinfo="HighQ iSheet Field Id"/>
+                <Property Name="LocalFieldname" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:text="to_Field/Description" sap:label="Field Name" sap:value-list="standard"/>
+                <Property Name="IsKey" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Key field" sap:quickinfo="Key field attribute"/>
+                <Property Name="ExternalReference" Type="Edm.String" MaxLength="20" sap:text="to_ExternalReference/Description" sap:label="External Reference" sap:value-list="fixed-values"/>
+                <Property Name="Deleted" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Deleted"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has Draft" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:display-format="UpperCase" sap:label="Is active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="to_Configuration" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_A3A6F3CE2DF3C0F1008864A5D885F041" FromRole="ToRole_assoc_A3A6F3CE2DF3C0F1008864A5D885F041" ToRole="FromRole_assoc_A3A6F3CE2DF3C0F1008864A5D885F041"/>
+                <NavigationProperty Name="DraftAdministrativeData" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_786F0A5DB12FE587E232D6CD6DF8CCEE" FromRole="FromRole_assoc_786F0A5DB12FE587E232D6CD6DF8CCEE" ToRole="ToRole_assoc_786F0A5DB12FE587E232D6CD6DF8CCEE"/>
+                <NavigationProperty Name="SiblingEntity" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_B5931617783D0A52957712CB7F23ED2C" FromRole="FromRole_assoc_B5931617783D0A52957712CB7F23ED2C" ToRole="ToRole_assoc_B5931617783D0A52957712CB7F23ED2C"/>
+                <NavigationProperty Name="to_ExternalReference" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_E3AD38C259C624D0274824E03226FC18" FromRole="FromRole_assoc_E3AD38C259C624D0274824E03226FC18" ToRole="ToRole_assoc_E3AD38C259C624D0274824E03226FC18"/>
+                <NavigationProperty Name="to_Field" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_0C15F26E204B42DF60249A3B89B0AC01" FromRole="FromRole_assoc_0C15F26E204B42DF60249A3B89B0AC01" ToRole="ToRole_assoc_0C15F26E204B42DF60249A3B89B0AC01"/>
+            </EntityType>
+            <EntityType Name="ZC_HighQAPIMapSupplierFieldType" sap:label="HighQ API Mapping Supplier Field" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="uuid"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="uuid" Type="Edm.Guid" Nullable="false" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ConfigurationId" Type="Edm.Guid" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)" sap:value-list="standard"/>
+                <Property Name="FieldId" Type="Edm.Int32" sap:label="Field Id" sap:quickinfo="HighQ iSheet Field Id"/>
+                <Property Name="LocalFieldname" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:text="to_Field/Description" sap:label="Field Name" sap:value-list="standard"/>
+                <Property Name="IsKey" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Key field" sap:quickinfo="Key field attribute"/>
+                <Property Name="ExternalReference" Type="Edm.String" MaxLength="20" sap:text="to_ExternalReference/Description" sap:label="External Reference" sap:value-list="fixed-values"/>
+                <Property Name="Deleted" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Deleted"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has Draft" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:display-format="UpperCase" sap:label="Is active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="to_Configuration" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE" FromRole="ToRole_assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE" ToRole="FromRole_assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE"/>
+                <NavigationProperty Name="DraftAdministrativeData" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_A6DD710E8D29AF20FB38F64FD7B0DDDD" FromRole="FromRole_assoc_A6DD710E8D29AF20FB38F64FD7B0DDDD" ToRole="ToRole_assoc_A6DD710E8D29AF20FB38F64FD7B0DDDD"/>
+                <NavigationProperty Name="SiblingEntity" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_22B800FE96BE6C0CDD7A274C0E31C7FE" FromRole="FromRole_assoc_22B800FE96BE6C0CDD7A274C0E31C7FE" ToRole="ToRole_assoc_22B800FE96BE6C0CDD7A274C0E31C7FE"/>
+                <NavigationProperty Name="to_ExternalReference" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_2976A5BCBA7AF15B8609A593B54E45A0" FromRole="FromRole_assoc_2976A5BCBA7AF15B8609A593B54E45A0" ToRole="ToRole_assoc_2976A5BCBA7AF15B8609A593B54E45A0"/>
+                <NavigationProperty Name="to_Field" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_6D1C88070EC55BDBFF25C8F8FB191FC4" FromRole="FromRole_assoc_6D1C88070EC55BDBFF25C8F8FB191FC4" ToRole="ToRole_assoc_6D1C88070EC55BDBFF25C8F8FB191FC4"/>
+            </EntityType>
+            <EntityType Name="ZC_HighQExternalValueType" sap:label="HighQ External Value" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="uuid"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="uuid" Type="Edm.Guid" Nullable="false" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ConfigurationId" Type="Edm.Guid" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)" sap:value-list="standard"/>
+                <Property Name="category" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="to_Category/Description" sap:label="Category" sap:quickinfo="HighQ Value Category" sap:value-list="fixed-values"/>
+                <Property Name="Value" Type="Edm.String" MaxLength="80"/>
+                <Property Name="iSheetId" Type="Edm.Int32" sap:label="iSheet Id" sap:quickinfo="HighQ iSheet Id"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has Draft" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:display-format="UpperCase" sap:label="Is active" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="to_Configuration" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_3A62FF9DECC61D2695616D0C7E9E7F45" FromRole="ToRole_assoc_3A62FF9DECC61D2695616D0C7E9E7F45" ToRole="FromRole_assoc_3A62FF9DECC61D2695616D0C7E9E7F45"/>
+                <NavigationProperty Name="DraftAdministrativeData" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_E357C8F4C6FA9E23AEE3E74DCD143BD0" FromRole="FromRole_assoc_E357C8F4C6FA9E23AEE3E74DCD143BD0" ToRole="ToRole_assoc_E357C8F4C6FA9E23AEE3E74DCD143BD0"/>
+                <NavigationProperty Name="SiblingEntity" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_9EC0494E3C60C134CB50B50E693C90B9" FromRole="FromRole_assoc_9EC0494E3C60C134CB50B50E693C90B9" ToRole="ToRole_assoc_9EC0494E3C60C134CB50B50E693C90B9"/>
+                <NavigationProperty Name="to_Category" Relationship="ZC_HIGHQAPICONFIGURATION_CDS.assoc_E6F9A5F9B9069BD570FC8E269220B3B9" FromRole="FromRole_assoc_E6F9A5F9B9069BD570FC8E269220B3B9" ToRole="ToRole_assoc_E6F9A5F9B9069BD570FC8E269220B3B9"/>
+            </EntityType>
+            <EntityType Name="ZI_HighQCompanyCodeFieldType" sap:label="Manager Fields" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FieldName"/>
+                </Key>
+                <Property Name="FieldName" Type="Edm.String" Nullable="false" MaxLength="30" sap:display-format="UpperCase" sap:text="Description" sap:label="Field Name"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Description of Repository Objects"/>
+            </EntityType>
+            <EntityType Name="ZI_HighQContractFieldType" sap:label="Contract Fields" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FieldName"/>
+                </Key>
+                <Property Name="FieldName" Type="Edm.String" Nullable="false" MaxLength="30" sap:display-format="UpperCase" sap:text="Description" sap:label="Field Name"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Description of Repository Objects"/>
+            </EntityType>
+            <EntityType Name="ZI_HighQDefaultType" sap:label="HighQ Default" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Value"/>
+                </Key>
+                <Property Name="Value" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="Description" sap:label="Lower Value" sap:quickinfo="Values for Domains: Single Value / Upper Limit"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values"/>
+            </EntityType>
+            <EntityType Name="ZI_HighQExternalReferenceType" sap:label="HighQ External Reference" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Reference"/>
+                </Key>
+                <Property Name="Reference" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="Description" sap:label="External Reference"/>
+                <Property Name="IsExternal" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="" sap:quickinfo="DD: truth value"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values"/>
+            </EntityType>
+            <EntityType Name="ZI_HighQExternalValueCateogoryType" sap:label="HighQ External Value Category" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Category"/>
+                </Key>
+                <Property Name="Category" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="Description" sap:label="Category" sap:quickinfo="HighQ Value Category"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values"/>
+            </EntityType>
+            <EntityType Name="ZI_HighQManagerFieldType" sap:label="Manager Fields" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FieldName"/>
+                </Key>
+                <Property Name="FieldName" Type="Edm.String" Nullable="false" MaxLength="30" sap:display-format="UpperCase" sap:text="Description" sap:label="Field Name"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Description of Repository Objects"/>
+            </EntityType>
+            <EntityType Name="ZI_HighQSupplierFieldType" sap:label="Supplier Fields" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FieldName"/>
+                </Key>
+                <Property Name="FieldName" Type="Edm.String" Nullable="false" MaxLength="30" sap:display-format="UpperCase" sap:text="Description" sap:label="Field Name"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Description of Repository Objects"/>
+            </EntityType>
+            <ComplexType Name="DummyFunctionImportResult">
+                <Property Name="IsInvalid" Type="Edm.Boolean" sap:label="TRUE"/>
+            </ComplexType>
+            <ComplexType Name="ValidationFunctionResult">
+                <Property Name="IsValid" Type="Edm.Boolean" sap:label="Is valid"/>
+            </ComplexType>
+            <Association Name="assoc_BF6721BB1BFCA46F39BA5F5974754DF8" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" Multiplicity="1" Role="FromRole_assoc_BF6721BB1BFCA46F39BA5F5974754DF8"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" Multiplicity="0..1" Role="ToRole_assoc_BF6721BB1BFCA46F39BA5F5974754DF8"/>
+            </Association>
+            <Association Name="assoc_33869AAF2D056ABC38CC13E953E5ACB9" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" Multiplicity="1" Role="FromRole_assoc_33869AAF2D056ABC38CC13E953E5ACB9"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQDefaultType" Multiplicity="0..1" Role="ToRole_assoc_33869AAF2D056ABC38CC13E953E5ACB9"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_33869AAF2D056ABC38CC13E953E5ACB9">
+                        <PropertyRef Name="Value"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_33869AAF2D056ABC38CC13E953E5ACB9">
+                        <PropertyRef Name="InstanceDefault"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_3A62FF9DECC61D2695616D0C7E9E7F45" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" Multiplicity="1" Role="FromRole_assoc_3A62FF9DECC61D2695616D0C7E9E7F45">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType" Multiplicity="*" Role="ToRole_assoc_3A62FF9DECC61D2695616D0C7E9E7F45"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_3A62FF9DECC61D2695616D0C7E9E7F45">
+                        <PropertyRef Name="uuid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_3A62FF9DECC61D2695616D0C7E9E7F45">
+                        <PropertyRef Name="ConfigurationId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_257D6BBA768FD2FC4997805730B77B68" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" Multiplicity="1" Role="FromRole_assoc_257D6BBA768FD2FC4997805730B77B68">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType" Multiplicity="*" Role="ToRole_assoc_257D6BBA768FD2FC4997805730B77B68"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_257D6BBA768FD2FC4997805730B77B68">
+                        <PropertyRef Name="uuid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_257D6BBA768FD2FC4997805730B77B68">
+                        <PropertyRef Name="ConfigurationId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_2E6C6174EDE75D14F2DD1067157D0330" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" Multiplicity="1" Role="FromRole_assoc_2E6C6174EDE75D14F2DD1067157D0330">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType" Multiplicity="*" Role="ToRole_assoc_2E6C6174EDE75D14F2DD1067157D0330"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_2E6C6174EDE75D14F2DD1067157D0330">
+                        <PropertyRef Name="uuid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_2E6C6174EDE75D14F2DD1067157D0330">
+                        <PropertyRef Name="ConfigurationId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_A3A6F3CE2DF3C0F1008864A5D885F041" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" Multiplicity="1" Role="FromRole_assoc_A3A6F3CE2DF3C0F1008864A5D885F041">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType" Multiplicity="*" Role="ToRole_assoc_A3A6F3CE2DF3C0F1008864A5D885F041"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_A3A6F3CE2DF3C0F1008864A5D885F041">
+                        <PropertyRef Name="uuid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_A3A6F3CE2DF3C0F1008864A5D885F041">
+                        <PropertyRef Name="ConfigurationId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" Multiplicity="1" Role="FromRole_assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType" Multiplicity="*" Role="ToRole_assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE">
+                        <PropertyRef Name="uuid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE">
+                        <PropertyRef Name="ConfigurationId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_A30542AE43F856BB193873B4AA7865A9" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" Multiplicity="1" Role="FromRole_assoc_A30542AE43F856BB193873B4AA7865A9"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_A30542AE43F856BB193873B4AA7865A9"/>
+            </Association>
+            <Association Name="assoc_A6DD710E8D29AF20FB38F64FD7B0DDDD" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType" Multiplicity="1" Role="FromRole_assoc_A6DD710E8D29AF20FB38F64FD7B0DDDD"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_A6DD710E8D29AF20FB38F64FD7B0DDDD"/>
+            </Association>
+            <Association Name="assoc_22B800FE96BE6C0CDD7A274C0E31C7FE" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType" Multiplicity="1" Role="FromRole_assoc_22B800FE96BE6C0CDD7A274C0E31C7FE"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType" Multiplicity="0..1" Role="ToRole_assoc_22B800FE96BE6C0CDD7A274C0E31C7FE"/>
+            </Association>
+            <Association Name="assoc_2976A5BCBA7AF15B8609A593B54E45A0" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType" Multiplicity="1" Role="FromRole_assoc_2976A5BCBA7AF15B8609A593B54E45A0"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQExternalReferenceType" Multiplicity="0..1" Role="ToRole_assoc_2976A5BCBA7AF15B8609A593B54E45A0"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_2976A5BCBA7AF15B8609A593B54E45A0">
+                        <PropertyRef Name="Reference"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_2976A5BCBA7AF15B8609A593B54E45A0">
+                        <PropertyRef Name="ExternalReference"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_6D1C88070EC55BDBFF25C8F8FB191FC4" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType" Multiplicity="1" Role="FromRole_assoc_6D1C88070EC55BDBFF25C8F8FB191FC4"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQSupplierFieldType" Multiplicity="0..1" Role="ToRole_assoc_6D1C88070EC55BDBFF25C8F8FB191FC4"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_6D1C88070EC55BDBFF25C8F8FB191FC4">
+                        <PropertyRef Name="FieldName"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_6D1C88070EC55BDBFF25C8F8FB191FC4">
+                        <PropertyRef Name="LocalFieldname"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_786F0A5DB12FE587E232D6CD6DF8CCEE" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType" Multiplicity="1" Role="FromRole_assoc_786F0A5DB12FE587E232D6CD6DF8CCEE"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_786F0A5DB12FE587E232D6CD6DF8CCEE"/>
+            </Association>
+            <Association Name="assoc_B5931617783D0A52957712CB7F23ED2C" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType" Multiplicity="1" Role="FromRole_assoc_B5931617783D0A52957712CB7F23ED2C"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType" Multiplicity="0..1" Role="ToRole_assoc_B5931617783D0A52957712CB7F23ED2C"/>
+            </Association>
+            <Association Name="assoc_E3AD38C259C624D0274824E03226FC18" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType" Multiplicity="1" Role="FromRole_assoc_E3AD38C259C624D0274824E03226FC18"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQExternalReferenceType" Multiplicity="0..1" Role="ToRole_assoc_E3AD38C259C624D0274824E03226FC18"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_E3AD38C259C624D0274824E03226FC18">
+                        <PropertyRef Name="Reference"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_E3AD38C259C624D0274824E03226FC18">
+                        <PropertyRef Name="ExternalReference"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_0C15F26E204B42DF60249A3B89B0AC01" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType" Multiplicity="1" Role="FromRole_assoc_0C15F26E204B42DF60249A3B89B0AC01"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQManagerFieldType" Multiplicity="0..1" Role="ToRole_assoc_0C15F26E204B42DF60249A3B89B0AC01"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_0C15F26E204B42DF60249A3B89B0AC01">
+                        <PropertyRef Name="FieldName"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_0C15F26E204B42DF60249A3B89B0AC01">
+                        <PropertyRef Name="LocalFieldname"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_FE6138FE66202D8CD84B23781EE146F7" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType" Multiplicity="1" Role="FromRole_assoc_FE6138FE66202D8CD84B23781EE146F7"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_FE6138FE66202D8CD84B23781EE146F7"/>
+            </Association>
+            <Association Name="assoc_BD0E56016F8DC5F0E0B9C9BE0FB28E34" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType" Multiplicity="1" Role="FromRole_assoc_BD0E56016F8DC5F0E0B9C9BE0FB28E34"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType" Multiplicity="0..1" Role="ToRole_assoc_BD0E56016F8DC5F0E0B9C9BE0FB28E34"/>
+            </Association>
+            <Association Name="assoc_37F5B9C32E066E1C722F9AA528A416B8" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType" Multiplicity="1" Role="FromRole_assoc_37F5B9C32E066E1C722F9AA528A416B8"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQExternalReferenceType" Multiplicity="0..1" Role="ToRole_assoc_37F5B9C32E066E1C722F9AA528A416B8"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_37F5B9C32E066E1C722F9AA528A416B8">
+                        <PropertyRef Name="Reference"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_37F5B9C32E066E1C722F9AA528A416B8">
+                        <PropertyRef Name="ExternalReference"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_285EA16E9DDDDACD2C7FFC8B00537924" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType" Multiplicity="1" Role="FromRole_assoc_285EA16E9DDDDACD2C7FFC8B00537924"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQContractFieldType" Multiplicity="0..1" Role="ToRole_assoc_285EA16E9DDDDACD2C7FFC8B00537924"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_285EA16E9DDDDACD2C7FFC8B00537924">
+                        <PropertyRef Name="FieldName"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_285EA16E9DDDDACD2C7FFC8B00537924">
+                        <PropertyRef Name="LocalFieldname"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_E357C8F4C6FA9E23AEE3E74DCD143BD0" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType" Multiplicity="1" Role="FromRole_assoc_E357C8F4C6FA9E23AEE3E74DCD143BD0"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_E357C8F4C6FA9E23AEE3E74DCD143BD0"/>
+            </Association>
+            <Association Name="assoc_9EC0494E3C60C134CB50B50E693C90B9" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType" Multiplicity="1" Role="FromRole_assoc_9EC0494E3C60C134CB50B50E693C90B9"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType" Multiplicity="0..1" Role="ToRole_assoc_9EC0494E3C60C134CB50B50E693C90B9"/>
+            </Association>
+            <Association Name="assoc_E6F9A5F9B9069BD570FC8E269220B3B9" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType" Multiplicity="1" Role="FromRole_assoc_E6F9A5F9B9069BD570FC8E269220B3B9"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQExternalValueCateogoryType" Multiplicity="0..1" Role="ToRole_assoc_E6F9A5F9B9069BD570FC8E269220B3B9"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_E6F9A5F9B9069BD570FC8E269220B3B9">
+                        <PropertyRef Name="Category"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_E6F9A5F9B9069BD570FC8E269220B3B9">
+                        <PropertyRef Name="category"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_25654BC02C26E170AD9B8BD1160D8EB0" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType" Multiplicity="1" Role="FromRole_assoc_25654BC02C26E170AD9B8BD1160D8EB0"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_25654BC02C26E170AD9B8BD1160D8EB0"/>
+            </Association>
+            <Association Name="assoc_F6CADDEA8F0587DABB5FE3946AA378C6" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType" Multiplicity="1" Role="FromRole_assoc_F6CADDEA8F0587DABB5FE3946AA378C6"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType" Multiplicity="0..1" Role="ToRole_assoc_F6CADDEA8F0587DABB5FE3946AA378C6"/>
+            </Association>
+            <Association Name="assoc_08E51B7EB5436C0FEBE3F29A33894852" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType" Multiplicity="1" Role="FromRole_assoc_08E51B7EB5436C0FEBE3F29A33894852"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQExternalReferenceType" Multiplicity="0..1" Role="ToRole_assoc_08E51B7EB5436C0FEBE3F29A33894852"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_08E51B7EB5436C0FEBE3F29A33894852">
+                        <PropertyRef Name="Reference"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_08E51B7EB5436C0FEBE3F29A33894852">
+                        <PropertyRef Name="ExternalReference"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_7559FC95D2F46050C0CCF4AE55A4C49E" sap:content-version="1">
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType" Multiplicity="1" Role="FromRole_assoc_7559FC95D2F46050C0CCF4AE55A4C49E"/>
+                <End Type="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQCompanyCodeFieldType" Multiplicity="0..1" Role="ToRole_assoc_7559FC95D2F46050C0CCF4AE55A4C49E"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_7559FC95D2F46050C0CCF4AE55A4C49E">
+                        <PropertyRef Name="FieldName"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_7559FC95D2F46050C0CCF4AE55A4C49E">
+                        <PropertyRef Name="LocalFieldname"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZC_HIGHQAPICONFIGURATION_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="I_DraftAdministrativeData" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.I_DraftAdministrativeDataType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="ZC_HighQAPIConfiguration" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZC_HighQAPIMapCompanyField" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZC_HighQAPIMapContractField" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZC_HighQAPIMapManagerField" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZC_HighQAPIMapSupplierField" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZC_HighQExternalValue" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZI_HighQCompanyCodeField" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQCompanyCodeFieldType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZI_HighQContractField" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQContractFieldType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZI_HighQDefault" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQDefaultType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZI_HighQExternalReference" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQExternalReferenceType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZI_HighQExternalValueCateogory" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQExternalValueCateogoryType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZI_HighQManagerField" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQManagerFieldType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZI_HighQSupplierField" EntityType="ZC_HIGHQAPICONFIGURATION_CDS.ZI_HighQSupplierFieldType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_F6CADDEA8F0587DABB5FE3946AA378C6" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_F6CADDEA8F0587DABB5FE3946AA378C6" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapCompanyField" Role="FromRole_assoc_F6CADDEA8F0587DABB5FE3946AA378C6"/>
+                    <End EntitySet="ZC_HighQAPIMapCompanyField" Role="ToRole_assoc_F6CADDEA8F0587DABB5FE3946AA378C6"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_25654BC02C26E170AD9B8BD1160D8EB0" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_25654BC02C26E170AD9B8BD1160D8EB0" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapCompanyField" Role="FromRole_assoc_25654BC02C26E170AD9B8BD1160D8EB0"/>
+                    <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_25654BC02C26E170AD9B8BD1160D8EB0"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_BD0E56016F8DC5F0E0B9C9BE0FB28E34" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_BD0E56016F8DC5F0E0B9C9BE0FB28E34" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapContractField" Role="FromRole_assoc_BD0E56016F8DC5F0E0B9C9BE0FB28E34"/>
+                    <End EntitySet="ZC_HighQAPIMapContractField" Role="ToRole_assoc_BD0E56016F8DC5F0E0B9C9BE0FB28E34"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_A3A6F3CE2DF3C0F1008864A5D885F041" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_A3A6F3CE2DF3C0F1008864A5D885F041" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIConfiguration" Role="FromRole_assoc_A3A6F3CE2DF3C0F1008864A5D885F041"/>
+                    <End EntitySet="ZC_HighQAPIMapManagerField" Role="ToRole_assoc_A3A6F3CE2DF3C0F1008864A5D885F041"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_9EC0494E3C60C134CB50B50E693C90B9" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_9EC0494E3C60C134CB50B50E693C90B9" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQExternalValue" Role="FromRole_assoc_9EC0494E3C60C134CB50B50E693C90B9"/>
+                    <End EntitySet="ZC_HighQExternalValue" Role="ToRole_assoc_9EC0494E3C60C134CB50B50E693C90B9"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_E3AD38C259C624D0274824E03226FC18" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_E3AD38C259C624D0274824E03226FC18" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapManagerField" Role="FromRole_assoc_E3AD38C259C624D0274824E03226FC18"/>
+                    <End EntitySet="ZI_HighQExternalReference" Role="ToRole_assoc_E3AD38C259C624D0274824E03226FC18"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_2976A5BCBA7AF15B8609A593B54E45A0" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_2976A5BCBA7AF15B8609A593B54E45A0" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapSupplierField" Role="FromRole_assoc_2976A5BCBA7AF15B8609A593B54E45A0"/>
+                    <End EntitySet="ZI_HighQExternalReference" Role="ToRole_assoc_2976A5BCBA7AF15B8609A593B54E45A0"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_0C15F26E204B42DF60249A3B89B0AC01" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_0C15F26E204B42DF60249A3B89B0AC01" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapManagerField" Role="FromRole_assoc_0C15F26E204B42DF60249A3B89B0AC01"/>
+                    <End EntitySet="ZI_HighQManagerField" Role="ToRole_assoc_0C15F26E204B42DF60249A3B89B0AC01"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_6D1C88070EC55BDBFF25C8F8FB191FC4" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_6D1C88070EC55BDBFF25C8F8FB191FC4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapSupplierField" Role="FromRole_assoc_6D1C88070EC55BDBFF25C8F8FB191FC4"/>
+                    <End EntitySet="ZI_HighQSupplierField" Role="ToRole_assoc_6D1C88070EC55BDBFF25C8F8FB191FC4"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_BF6721BB1BFCA46F39BA5F5974754DF8" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_BF6721BB1BFCA46F39BA5F5974754DF8" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIConfiguration" Role="FromRole_assoc_BF6721BB1BFCA46F39BA5F5974754DF8"/>
+                    <End EntitySet="ZC_HighQAPIConfiguration" Role="ToRole_assoc_BF6721BB1BFCA46F39BA5F5974754DF8"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIConfiguration" Role="FromRole_assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE"/>
+                    <End EntitySet="ZC_HighQAPIMapSupplierField" Role="ToRole_assoc_9B7EF7DD47112BA34DB3AF23ED13E9FE"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_08E51B7EB5436C0FEBE3F29A33894852" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_08E51B7EB5436C0FEBE3F29A33894852" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapCompanyField" Role="FromRole_assoc_08E51B7EB5436C0FEBE3F29A33894852"/>
+                    <End EntitySet="ZI_HighQExternalReference" Role="ToRole_assoc_08E51B7EB5436C0FEBE3F29A33894852"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_3A62FF9DECC61D2695616D0C7E9E7F45" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_3A62FF9DECC61D2695616D0C7E9E7F45" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIConfiguration" Role="FromRole_assoc_3A62FF9DECC61D2695616D0C7E9E7F45"/>
+                    <End EntitySet="ZC_HighQExternalValue" Role="ToRole_assoc_3A62FF9DECC61D2695616D0C7E9E7F45"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_FE6138FE66202D8CD84B23781EE146F7" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_FE6138FE66202D8CD84B23781EE146F7" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapContractField" Role="FromRole_assoc_FE6138FE66202D8CD84B23781EE146F7"/>
+                    <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_FE6138FE66202D8CD84B23781EE146F7"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_E357C8F4C6FA9E23AEE3E74DCD143BD0" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_E357C8F4C6FA9E23AEE3E74DCD143BD0" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQExternalValue" Role="FromRole_assoc_E357C8F4C6FA9E23AEE3E74DCD143BD0"/>
+                    <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_E357C8F4C6FA9E23AEE3E74DCD143BD0"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_A6DD710E8D29AF20FB38F64FD7B0DDDD" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_A6DD710E8D29AF20FB38F64FD7B0DDDD" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapSupplierField" Role="FromRole_assoc_A6DD710E8D29AF20FB38F64FD7B0DDDD"/>
+                    <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_A6DD710E8D29AF20FB38F64FD7B0DDDD"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_22B800FE96BE6C0CDD7A274C0E31C7FE" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_22B800FE96BE6C0CDD7A274C0E31C7FE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapSupplierField" Role="FromRole_assoc_22B800FE96BE6C0CDD7A274C0E31C7FE"/>
+                    <End EntitySet="ZC_HighQAPIMapSupplierField" Role="ToRole_assoc_22B800FE96BE6C0CDD7A274C0E31C7FE"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_37F5B9C32E066E1C722F9AA528A416B8" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_37F5B9C32E066E1C722F9AA528A416B8" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapContractField" Role="FromRole_assoc_37F5B9C32E066E1C722F9AA528A416B8"/>
+                    <End EntitySet="ZI_HighQExternalReference" Role="ToRole_assoc_37F5B9C32E066E1C722F9AA528A416B8"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_A30542AE43F856BB193873B4AA7865A9" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_A30542AE43F856BB193873B4AA7865A9" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIConfiguration" Role="FromRole_assoc_A30542AE43F856BB193873B4AA7865A9"/>
+                    <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_A30542AE43F856BB193873B4AA7865A9"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_786F0A5DB12FE587E232D6CD6DF8CCEE" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_786F0A5DB12FE587E232D6CD6DF8CCEE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapManagerField" Role="FromRole_assoc_786F0A5DB12FE587E232D6CD6DF8CCEE"/>
+                    <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_786F0A5DB12FE587E232D6CD6DF8CCEE"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_7559FC95D2F46050C0CCF4AE55A4C49E" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_7559FC95D2F46050C0CCF4AE55A4C49E" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapCompanyField" Role="FromRole_assoc_7559FC95D2F46050C0CCF4AE55A4C49E"/>
+                    <End EntitySet="ZI_HighQCompanyCodeField" Role="ToRole_assoc_7559FC95D2F46050C0CCF4AE55A4C49E"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_285EA16E9DDDDACD2C7FFC8B00537924" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_285EA16E9DDDDACD2C7FFC8B00537924" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapContractField" Role="FromRole_assoc_285EA16E9DDDDACD2C7FFC8B00537924"/>
+                    <End EntitySet="ZI_HighQContractField" Role="ToRole_assoc_285EA16E9DDDDACD2C7FFC8B00537924"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_B5931617783D0A52957712CB7F23ED2C" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_B5931617783D0A52957712CB7F23ED2C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIMapManagerField" Role="FromRole_assoc_B5931617783D0A52957712CB7F23ED2C"/>
+                    <End EntitySet="ZC_HighQAPIMapManagerField" Role="ToRole_assoc_B5931617783D0A52957712CB7F23ED2C"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_33869AAF2D056ABC38CC13E953E5ACB9" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_33869AAF2D056ABC38CC13E953E5ACB9" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIConfiguration" Role="FromRole_assoc_33869AAF2D056ABC38CC13E953E5ACB9"/>
+                    <End EntitySet="ZI_HighQDefault" Role="ToRole_assoc_33869AAF2D056ABC38CC13E953E5ACB9"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_E6F9A5F9B9069BD570FC8E269220B3B9" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_E6F9A5F9B9069BD570FC8E269220B3B9" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQExternalValue" Role="FromRole_assoc_E6F9A5F9B9069BD570FC8E269220B3B9"/>
+                    <End EntitySet="ZI_HighQExternalValueCateogory" Role="ToRole_assoc_E6F9A5F9B9069BD570FC8E269220B3B9"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_257D6BBA768FD2FC4997805730B77B68" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_257D6BBA768FD2FC4997805730B77B68" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIConfiguration" Role="FromRole_assoc_257D6BBA768FD2FC4997805730B77B68"/>
+                    <End EntitySet="ZC_HighQAPIMapCompanyField" Role="ToRole_assoc_257D6BBA768FD2FC4997805730B77B68"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_2E6C6174EDE75D14F2DD1067157D0330" Association="ZC_HIGHQAPICONFIGURATION_CDS.assoc_2E6C6174EDE75D14F2DD1067157D0330" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_HighQAPIConfiguration" Role="FromRole_assoc_2E6C6174EDE75D14F2DD1067157D0330"/>
+                    <End EntitySet="ZC_HighQAPIMapContractField" Role="ToRole_assoc_2E6C6174EDE75D14F2DD1067157D0330"/>
+                </AssociationSet>
+                <FunctionImport Name="ZC_HighQAPIConfigurationActivation" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" EntitySet="ZC_HighQAPIConfiguration" m:HttpMethod="POST" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" sap:applicable-path="Activation_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIConfigurationCancel_default" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" sap:applicable-path="Cancel_default_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIConfigurationEdit" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" EntitySet="ZC_HighQAPIConfiguration" m:HttpMethod="POST" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" sap:applicable-path="Edit_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="PreserveChanges" Type="Edm.Boolean" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIConfigurationPreparation" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" EntitySet="ZC_HighQAPIConfiguration" m:HttpMethod="POST" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" sap:applicable-path="Preparation_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIConfigurationReload_token" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" sap:applicable-path="Reload_token_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIConfigurationSet_default" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" sap:applicable-path="Set_default_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIConfigurationValidation" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ValidationFunctionResult" m:HttpMethod="GET" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" sap:applicable-path="Validation_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIMapCompanyFieldPreparation" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType" EntitySet="ZC_HighQAPIMapCompanyField" m:HttpMethod="POST" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType" sap:applicable-path="Preparation_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIMapCompanyFieldValidation" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ValidationFunctionResult" m:HttpMethod="GET" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType" sap:applicable-path="Validation_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIMapContractFieldPreparation" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType" EntitySet="ZC_HighQAPIMapContractField" m:HttpMethod="POST" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType" sap:applicable-path="Preparation_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIMapContractFieldValidation" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ValidationFunctionResult" m:HttpMethod="GET" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType" sap:applicable-path="Validation_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIMapManagerFieldPreparation" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType" EntitySet="ZC_HighQAPIMapManagerField" m:HttpMethod="POST" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType" sap:applicable-path="Preparation_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIMapManagerFieldValidation" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ValidationFunctionResult" m:HttpMethod="GET" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType" sap:applicable-path="Validation_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIMapSupplierFieldPreparation" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType" EntitySet="ZC_HighQAPIMapSupplierField" m:HttpMethod="POST" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType" sap:applicable-path="Preparation_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQAPIMapSupplierFieldValidation" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ValidationFunctionResult" m:HttpMethod="GET" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType" sap:applicable-path="Validation_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQExternalValuePreparation" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType" EntitySet="ZC_HighQExternalValue" m:HttpMethod="POST" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType" sap:applicable-path="Preparation_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="ZC_HighQExternalValueValidation" ReturnType="ZC_HIGHQAPICONFIGURATION_CDS.ValidationFunctionResult" m:HttpMethod="GET" sap:action-for="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType" sap:applicable-path="Validation_ac">
+                    <Parameter Name="uuid" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIConfiguration" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.DraftRoot">
+                    <Record>
+                        <PropertyValue Property="ActivationAction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIConfigurationActivation"/>
+                        <PropertyValue Property="EditAction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIConfigurationEdit"/>
+                        <PropertyValue Property="PreparationAction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIConfigurationPreparation"/>
+                        <PropertyValue Property="ValidationFunction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIConfigurationValidation"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>Activation_ac</PropertyPath>
+                                <PropertyPath>Cancel_default_ac</PropertyPath>
+                                <PropertyPath>Edit_ac</PropertyPath>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Reload_token_ac</PropertyPath>
+                                <PropertyPath>Set_default_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>Criticality</PropertyPath>
+                                <PropertyPath>URLGenerateCode</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="URLGenerateCode"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>Activation_ac</PropertyPath>
+                                <PropertyPath>Cancel_default_ac</PropertyPath>
+                                <PropertyPath>Edit_ac</PropertyPath>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Reload_token_ac</PropertyPath>
+                                <PropertyPath>Set_default_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>Criticality</PropertyPath>
+                                <PropertyPath>URLGenerateCode</PropertyPath>
+                                <PropertyPath>URLGenerateCode</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQExternalValue" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.DraftNode">
+                    <Record>
+                        <PropertyValue Property="PreparationAction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQExternalValuePreparation"/>
+                        <PropertyValue Property="ValidationFunction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQExternalValueValidation"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftActivationVia">
+                    <Collection>
+                        <String>ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIConfiguration</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIMapCompanyField" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.DraftNode">
+                    <Record>
+                        <PropertyValue Property="PreparationAction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIMapCompanyFieldPreparation"/>
+                        <PropertyValue Property="ValidationFunction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIMapCompanyFieldValidation"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftActivationVia">
+                    <Collection>
+                        <String>ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIConfiguration</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIMapContractField" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.DraftNode">
+                    <Record>
+                        <PropertyValue Property="PreparationAction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIMapContractFieldPreparation"/>
+                        <PropertyValue Property="ValidationFunction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIMapContractFieldValidation"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftActivationVia">
+                    <Collection>
+                        <String>ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIConfiguration</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIMapManagerField" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.DraftNode">
+                    <Record>
+                        <PropertyValue Property="PreparationAction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIMapManagerFieldPreparation"/>
+                        <PropertyValue Property="ValidationFunction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIMapManagerFieldValidation"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftActivationVia">
+                    <Collection>
+                        <String>ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIConfiguration</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIMapSupplierField" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.DraftNode">
+                    <Record>
+                        <PropertyValue Property="PreparationAction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIMapSupplierFieldPreparation"/>
+                        <PropertyValue Property="ValidationFunction" String="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIMapSupplierFieldValidation"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftActivationVia">
+                    <Collection>
+                        <String>ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities/ZC_HighQAPIConfiguration</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType/InstanceDefault" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="HighQ Default"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_HighQDefault"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="InstanceDefault"/>
+                                    <PropertyValue Property="ValueListProperty" String="Value"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType/ConfigurationId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="HighQ API Configuration"/>
+                        <PropertyValue Property="CollectionPath" String="ZC_HighQAPIConfiguration"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ConfigurationId"/>
+                                    <PropertyValue Property="ValueListProperty" String="uuid"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="InstanceName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType/LocalFieldname" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Manager Fields"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_HighQCompanyCodeField"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="LocalFieldname"/>
+                                    <PropertyValue Property="ValueListProperty" String="FieldName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType/ExternalReference" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="HighQ External Reference"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_HighQExternalReference"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ExternalReference"/>
+                                    <PropertyValue Property="ValueListProperty" String="Reference"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType/ConfigurationId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="HighQ API Configuration"/>
+                        <PropertyValue Property="CollectionPath" String="ZC_HighQAPIConfiguration"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ConfigurationId"/>
+                                    <PropertyValue Property="ValueListProperty" String="uuid"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="InstanceName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType/LocalFieldname" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Contract Fields"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_HighQContractField"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="LocalFieldname"/>
+                                    <PropertyValue Property="ValueListProperty" String="FieldName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType/ExternalReference" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="HighQ External Reference"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_HighQExternalReference"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ExternalReference"/>
+                                    <PropertyValue Property="ValueListProperty" String="Reference"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType/ConfigurationId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="HighQ API Configuration"/>
+                        <PropertyValue Property="CollectionPath" String="ZC_HighQAPIConfiguration"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ConfigurationId"/>
+                                    <PropertyValue Property="ValueListProperty" String="uuid"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="InstanceName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType/LocalFieldname" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Manager Fields"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_HighQManagerField"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="LocalFieldname"/>
+                                    <PropertyValue Property="ValueListProperty" String="FieldName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType/ExternalReference" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="HighQ External Reference"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_HighQExternalReference"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ExternalReference"/>
+                                    <PropertyValue Property="ValueListProperty" String="Reference"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType/ConfigurationId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="HighQ API Configuration"/>
+                        <PropertyValue Property="CollectionPath" String="ZC_HighQAPIConfiguration"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ConfigurationId"/>
+                                    <PropertyValue Property="ValueListProperty" String="uuid"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="InstanceName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType/LocalFieldname" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Supplier Fields"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_HighQSupplierField"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="LocalFieldname"/>
+                                    <PropertyValue Property="ValueListProperty" String="FieldName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType/ExternalReference" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="HighQ External Reference"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_HighQExternalReference"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ExternalReference"/>
+                                    <PropertyValue Property="ValueListProperty" String="Reference"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType/ConfigurationId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="HighQ API Configuration"/>
+                        <PropertyValue Property="CollectionPath" String="ZC_HighQAPIConfiguration"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ConfigurationId"/>
+                                    <PropertyValue Property="ValueListProperty" String="uuid"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="InstanceName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType/category" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="HighQ External Value Category"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_HighQExternalValueCateogory"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="category"/>
+                                    <PropertyValue Property="ValueListProperty" String="Category"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HIGHQAPICONFIGURATION_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType/APIVersion" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType/ClientId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType/InstanceId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType/FieldId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType/FieldId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType/FieldId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType/FieldId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType/Value" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType/iSheetId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIConfigurationType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>InstanceId</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapCompanyFieldType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>uuid</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapContractFieldType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>uuid</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapManagerFieldType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>uuid</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQAPIMapSupplierFieldType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>uuid</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZC_HIGHQAPICONFIGURATION_CDS.ZC_HighQExternalValueType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>uuid</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://dfi.test:14443/sap/opu/odata/sap/ZC_HIGHQAPICONFIGURATION_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://dfi.test:14443/sap/opu/odata/sap/ZC_HIGHQAPICONFIGURATION_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

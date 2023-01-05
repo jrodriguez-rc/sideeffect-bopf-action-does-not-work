@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "2.5"
+metadata:
+  name: com.resultoconsultoria.test.highq.apiconfiguration
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          destination: ABAP_test_DFI
+          url: http://dfi.test:14443
+        app:
+          name: ZHQAPICONFIG
+          description: HighQ API Configuration
+          package: ZHIGHQ
+          transport: DFIK942618
